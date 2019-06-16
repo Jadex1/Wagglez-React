@@ -8,7 +8,7 @@
     "build:s3": "cross-env S3_DEPLOY=true NODE_ENV=production node bin/commands.js build",
     "build:stage": "cross-env NODE_ENV=stage node bin/commands.js build",
     "build:stage:s3": "cross-env S3_DEPLOY=true NODE_ENV=stage node bin/commands.js build",
-    "clean": "rimraf docroot",
+    "clean": "rimraf dist",
     "test": "jest --no-cache",
     "lint": "node bin/commands.js lint"
   },

@@ -22,7 +22,7 @@ process.env.PACKAGE_VERSION = packageJSON.version
 // Defining config variables
 // ================================================================================
 
-export const BUILD_PATH = path.join(__dirname, `docroot${config.get('publicPath')}`)
+export const BUILD_PATH = path.join(__dirname, `dist${config.get('publicPath')}`)
 
 const COMMON_LOADERS = [
   {
@@ -130,7 +130,7 @@ export const JS_SOURCE = config.get('jsSourcePath');
 
 export default {
   output: {
-    path: path.join(__dirname, 'docroot'),
+    path: path.join(__dirname, 'dist'),
   },
   performance: {
     hints: process.env.NODE_ENV === 'production' ? "warning" : false

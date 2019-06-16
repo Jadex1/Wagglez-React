@@ -231,12 +231,12 @@ All your javascript code lives in folder `src/js`
 React Redux Boilerplate supports production preview, which means that you can run the production build job and see how it looks like in production.
 
 1. Run `npm run build` and wait until it is done
-2. Go to the project `docroot`, you will see a `index.html`  (template is customizable, please read `Developing Template` section)
+2. Go to the project `dist`, you will see a `index.html`  (template is customizable, please read `Developing Template` section)
 3. Serve the build directory, for example like so:
 
 ```bash
 npm i -g http-server
-cd docroot
+cd dist
 http-server
 ```
 By default http-server will serve your production build at port 8080.  Docs are [here](https://www.npmjs.com/package/http-server).
@@ -404,9 +404,9 @@ For example, you can enter the address into multiple real devices and you can te
 
 ## Developing Template
 
-The `docroot/index.html` is a generated artifact. If look at our sample template at `src/assets/template/_default.html`, the `docroot/index.html` is generated from that file.
+The `dist/index.html` is a generated artifact. If look at our sample template at `src/assets/template/_default.html`, the `dist/index.html` is generated from that file.
 
-We are using [HTML Webpack Plugin](https://github.com/ampedandwired/html-webpack-plugin) to generate the `docroot/index.html`.
+We are using [HTML Webpack Plugin](https://github.com/ampedandwired/html-webpack-plugin) to generate the `dist/index.html`.
 
 * If you are developing a single page application, you probably can reuse that file or customize it.
 * If you are building multiple pages application, please read the [HTML Webpack Plugin](https://github.com/ampedandwired/html-webpack-plugin) documentation for template development and how to configure it.

@@ -151,7 +151,7 @@ webpackConfig.plugins.push(
   new webpack.IgnorePlugin(/un~$/),
 
   new SaveAssetsJson({
-    path: path.join(__dirname, 'docroot'),
+    path: path.join(__dirname, 'dist'),
     filename: 'assets.json',
     prettyPrint: true,
     metadata: {

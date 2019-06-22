@@ -1,20 +1,21 @@
-import config from 'config'
-import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import DashboardPlugin from 'webpack-dashboard/plugin'
-import precss from 'precss'
-import postcssPresetEnv from 'postcss-preset-env'
-
-import webpackConfig, { JS_SOURCE } from './webpack.config.common'
+const config = require('config');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const precss = require('precss');
+const postcssPresetEnv = require('postcss-preset-env');
+const webpackConfig = require('./webpack.config.common');
 
 // Please read the following link if
 // you have no idea how to use this feature
 // https://github.com/motdotla/dotenv
-require('dotenv').config({ silent: true })
+require('dotenv').config({
+  silent: true
+})
 
 const HOST = process.env.HOST || config.get('host') || '0.0.0.0'
 const PORT = process.env.PORT || config.get('port') || '8080'
-const APP_ENTRY_POINT = `${JS_SOURCE}/main`
+const APP_ENTRY_POINT = 'src/js/main'
 
 const webpackDevOutput = {
   publicPath: config.get('publicPath'),
@@ -82,29 +83,25 @@ webpackConfig.plugins.push(
 if (config.get('browserSync.active') === true) {
   const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   webpackConfig.plugins.push(
-    new BrowserSyncPlugin(
-      {
-        host: 'localhost',
-        port: config.get('browserSync.port'),
-        proxy: `http://localhost:${process.env.PORT}/`,
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: config.get('browserSync.port'),
+      proxy: `http://localhost:${process.env.PORT}/`,
 
-        // Prevents BrowserSync from automatically opening up the app in your browser
-        open: false,
-        reloadDelay: 2500,
-      },
-      {
-        // Disable BrowserSync's browser reload/asset injections feature because
-        // Webpack Dev Server handles this for us already
-        reload: false,
-      }
-    )
+      // Prevents BrowserSync from automatically opening up the app in your browser
+      open: false,
+      reloadDelay: 2500,
+    }, {
+      // Disable BrowserSync's browser reload/asset injections feature because
+      // Webpack Dev Server handles this for us already
+      reload: false,
+    })
   )
 }
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat({
   test: /\.css$/,
-  use: [
-    {
+  use: [{
       loader: 'style-loader',
     },
     {
@@ -148,4 +145,4 @@ webpackConfig.entry = [
   `./${APP_ENTRY_POINT}`,
 ]
 
-export default webpackConfig
+module.exports = webpackConfig;

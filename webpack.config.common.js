@@ -1,14 +1,16 @@
 // Requiring dependencies
 // ================================================================================
-import path from 'path';
-import webpack from 'webpack';
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import config from 'config';
+const path = require('path');
+const webpack = require('webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const config = require('config');
 
 // Please read the following link if
 // you have no idea how to use this feature
 // https://github.com/motdotla/dotenv
-require('dotenv').config({ silent: true });
+require('dotenv').config({
+  silent: true
+});
 
 // trace which loader is deprecated
 // feel free to remove that if you don't need this feature
@@ -16,19 +18,16 @@ process.traceDeprecation = false;
 
 // Environment variable injection
 // ================================================================================
-import packageJSON from './package.json'
+const packageJSON = require('./package.json');
 process.env.PACKAGE_VERSION = packageJSON.version
 
 // Defining config variables
 // ================================================================================
 
-export const BUILD_PATH = path.join(__dirname, `dist${config.get('publicPath')}`)
-
-const COMMON_LOADERS = [
-  {
+const BUILD_PATH = path.join(__dirname, `dist${config.get('publicPath')}`)
+const COMMON_LOADERS = [{
     test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-    use: [
-      {
+    use: [{
         loader: 'file-loader',
         options: {
           hash: 'sha512',
@@ -72,63 +71,54 @@ const COMMON_LOADERS = [
   },
   {
     test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/font-woff',
-          name: `${config.get('assetPath')}/[name].[ext]`,
-        }
+    use: [{
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        mimetype: 'application/font-woff',
+        name: `${config.get('assetPath')}/[name].[ext]`,
       }
-    ],
+    }],
   },
   {
     test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/font-woff',
-          name: `${config.get('assetPath')}/[name].[ext]`,
-        }
+    use: [{
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        mimetype: 'application/font-woff',
+        name: `${config.get('assetPath')}/[name].[ext]`,
       }
-    ],
+    }],
   },
   {
     test: /\.[ot]tf(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/octet-stream',
-          name: `${config.get('assetPath')}/[name].[ext]`,
-        }
+    use: [{
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        mimetype: 'application/octet-stream',
+        name: `${config.get('assetPath')}/[name].[ext]`,
       }
-    ],
+    }],
   },
   {
     test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/vnd.ms-fontobject',
-          name: `${config.get('assetPath')}/[name].[ext]`,
-        }
+    use: [{
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        mimetype: 'application/vnd.ms-fontobject',
+        name: `${config.get('assetPath')}/[name].[ext]`,
       }
-    ],
+    }],
   }
 ];
 
 // Export
 // ===============================================================================
-export const JS_SOURCE = config.get('jsSourcePath');
 
-export default {
+module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
   },
@@ -136,7 +126,7 @@ export default {
     hints: process.env.NODE_ENV === 'production' ? "warning" : false
   },
   optimization: {
-      splitChunks: {
+    splitChunks: {
       chunks: 'all'
     }
   },
@@ -145,7 +135,7 @@ export default {
     modules: [
       path.join(__dirname, 'src'),
       path.join(__dirname, 'assets'),
-      path.join(__dirname, JS_SOURCE),
+      path.join(__dirname, 'src/js'),
       "node_modules"
     ],
   },
@@ -163,9 +153,10 @@ export default {
     tls: 'empty'
   },
   externals: {
-    console:true,
-    fs:'{}',
-    tls:'{}',
-    net:'{}'
-  },
+    console: true,
+    fs: '{}',
+    tls: '{}',
+    net: '{}'
+  }
+  
 };

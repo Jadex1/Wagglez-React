@@ -1,22 +1,20 @@
-import config from 'config'
-import path from 'path'
-import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import SaveAssetsJson from 'assets-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import precss from 'precss'
-import postcssPresetEnv from 'postcss-preset-env'
-import AWS from 'aws-sdk'
-
-
-import webpackConfig, { JS_SOURCE } from './webpack.config.common'
+const config = require('config');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SaveAssetsJson = require('assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const precss = require('precss');
+const postcssPresetEnv = require('postcss-preset-env');
+const AWS = require('aws-sdk');
+const webpackConfig = require('./webpack.config.common');
 
 // ----------------------------------------------------------
 //  CONSTANT DECLARATION
 // ----------------------------------------------------------
 const IS_S3_DEPLOY = Boolean(process.env.S3_DEPLOY);
 const PUBLIC_PATH = IS_S3_DEPLOY ? process.env.AWS_CDN_URL : config.get('publicPath');
-const APP_ENTRY_POINT = `${JS_SOURCE}/main`;
+const APP_ENTRY_POINT = 'src/js/main';
 
 // webpack 4 mode
 // https://webpack.js.org/concepts/mode/
@@ -57,8 +55,7 @@ webpackConfig.output = Object.assign(webpackConfig.output, webpackProdOutput)
 
 webpackConfig.module.rules = webpackConfig.module.rules.concat({
   test: /\.css$/,
-  use: [
-    {
+  use: [{
       loader: MiniCssExtractPlugin.loader,
     },
     {
@@ -100,7 +97,9 @@ if (IS_S3_DEPLOY) {
   // `process.env.AWS_ACCESS_KEY` is coming from
   let s3Options = {};
   if (process.env.AWS_PROFILE) {
-    s3Options = new AWS.SharedIniFileCredentials({ profile: process.env.AWS_PROFILE });
+    s3Options = new AWS.SharedIniFileCredentials({
+      profile: process.env.AWS_PROFILE
+    });
   }
   if (process.env.AWS_ACCESS_KEY) {
     s3Options.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -126,7 +125,9 @@ if (IS_S3_DEPLOY) {
 }
 
 if (config.get('optimization.analyzeMode') === true) {
-  const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+  const {
+    BundleAnalyzerPlugin
+  } = require('webpack-bundle-analyzer')
 
   webpackConfig.plugins = webpackConfig.plugins.concat(
     new BundleAnalyzerPlugin({

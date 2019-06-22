@@ -1,5 +1,5 @@
 {
-  "name": "Wagglez-React",
+  "name": "wagglez-react-client",
   "version": "0.0.0",
   "description": "React Redux Boilerplate is a workflow boilerplate that make life easier for developers by providing a virtual development environment and production ready build process framework out of the box.",
   "scripts": {
@@ -111,6 +111,13 @@
     "redux-saga": "^1.0.1",
     "reselect": "^4.0.0"
   },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "Firefox ESR",
+    "maintained node versions",
+    "not dead"
+  ],
   "jest": {
     "testURL": "http://www.SomeAwesome.com",
     "verbose": true,

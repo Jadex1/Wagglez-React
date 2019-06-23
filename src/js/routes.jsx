@@ -23,6 +23,7 @@ const JustAnotherPage = () => (
 
 // This show case how you can access routing info in your component
 const HeaderWithRouter = withRouter((props) => <Header {...props} />)
+// const FooterWithRouter = withRouter((props) => <Footer {...props} />)
 
 module.exports = (
   <div className={styles.container}>
@@ -35,5 +36,6 @@ module.exports = (
         <Route path="*" component={ExampleRouteHandler} />
       </Switch>
     </div>
+    {/* <Foote rWithRouter /> */}
   </div>
 )
